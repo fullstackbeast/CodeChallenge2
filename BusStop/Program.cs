@@ -9,9 +9,10 @@ namespace BusStop
         static void Main(string[] args)
         {
             // int[][] r = new int[][] { new int[] { 1, 2, 7 }, new int[] { 3, 6, 7 } };
-            int[][] r = new int[][] { new int[] { 7, 12 }, new int[] { 4, 13, 15 }, new[] { 6 }, new[] { 15, 19 }, new[] { 9, 12, 13 } };
+            int[][] r = new int[][]
+                { new int[] { 7, 12 }, new int[] { 4, 13, 15 }, new[] { 6 }, new[] { 15, 19 }, new[] { 9, 12, 13 } };
 
-            var b = GetBusCountBetweenStops(r, 7, 200);
+            var b = GetBusCountBetweenStops(r, 12, 1);
 
             Console.WriteLine(b);
         }
@@ -102,13 +103,14 @@ namespace BusStop
 
         static int GetBusCountBetweenStops(int[][] route, int source, int target)
         {
+            if (source == target) return 0;
             var nodes = GenerateNodes(route);
             var generatedPaths = GetShortestPaths(source, nodes);
             if (generatedPaths.Count == 0) return -1;
 
             var startPath = generatedPaths.Find(p => p.Node == target);
-            
-            if(startPath == null) return -1;
+
+            if (startPath == null) return -1;
 
             var paths = new List<int>();
 
